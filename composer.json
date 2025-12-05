@@ -1,0 +1,35 @@
+{
+    "name": "bcmarketplace/module-custom-report-suite",
+    "description": "BCMarketplace Custom Report Suite - Enterprise-grade custom SQL report builder with admin grid display and automated exports for Adobe Commerce 2.4.7+",
+    "type": "magento2-module",
+    "version": "2.1.0",
+    "license": [
+        "OSL-3.0",
+        "AFL-3.0"
+    ],
+    "authors": [
+        {
+            "name": "Raphael Baako",
+            "email": "rbaako@baakoconsultingllc.com",
+            "homepage": "https://baakoconsultingllc.com",
+            "role": "Senior Architect"
+        }
+    ],
+    "require": {
+        "php": "~8.2.0||~8.3.0",
+        "bcmarketplace/module-base": "^1.1.1",
+        "magento/framework": ">=103.0.0",
+        "magento/module-backend": ">=102.0.0",
+        "magento/module-config": ">=100.2.0",
+        "magento/module-store": ">=100.2.0",
+        "magento/module-ui": ">=101.0.0"
+    },
+    "autoload": {
+        "files": [
+            "registration.php"
+        ],
+        "psr-4": {
+            "BCMarketplace\\CustomReportSuite\\": ""
+        }
+    }
+}

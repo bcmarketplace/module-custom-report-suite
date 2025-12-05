@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <argument name="data" xsi:type="array">
+        <item name="js_config" xsi:type="array">
+            <item name="provider" xsi:type="string">automatedexport_form.automatedexport_form_data_source</item>
+            <item name="deps" xsi:type="string">automatedexport_form.automatedexport_form_data_source</item>
+        </item>
+        <item name="label" xsi:type="string" translate="true">Object Information</item>
+        <item name="config" xsi:type="array">
+            <item name="dataScope" xsi:type="string">data</item>
+            <item name="namespace" xsi:type="string">automatedexport_form</item>
+        </item>
+        <item name="template" xsi:type="string">templates/form/collapsible</item>
+        <item name="buttons" xsi:type="array">
+            <item name="back" xsi:type="string">BCMarketplace\CustomReportSuite\Block\Adminhtml\AutomatedExport\Edit\BackButton</item>
+            <item name="delete" xsi:type="string">BCMarketplace\CustomReportSuite\Block\Adminhtml\AutomatedExport\Edit\DeleteButton</item>
+            <item name="reset" xsi:type="string">BCMarketplace\CustomReportSuite\Block\Adminhtml\AutomatedExport\Edit\ResetButton</item>
+            <item name="save" xsi:type="string">BCMarketplace\CustomReportSuite\Block\Adminhtml\AutomatedExport\Edit\SaveButton</item>
+            <item name="save_and_continue" xsi:type="string">BCMarketplace\CustomReportSuite\Block\Adminhtml\AutomatedExport\Edit\SaveAndContinueButton</item>
+        </item>
+    </argument>
+    <dataSource name="automatedexport_form_data_source">
+        <argument name="dataProvider" xsi:type="configurableObject">
+            <argument name="class" xsi:type="string">BCMarketplace\CustomReportSuite\Model\AutomatedExport\DataProvider</argument>
+            <argument name="name" xsi:type="string">automatedexport_form_data_source</argument>
+            <argument name="primaryFieldName" xsi:type="string">main_table.schedule_id</argument>
+            <argument name="requestFieldName" xsi:type="string">schedule_id</argument>
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="submit_url" xsi:type="url" path="*/*/save"/>
+                </item>
+            </argument>
+        </argument>
+        <argument name="data" xsi:type="array">
+            <item name="js_config" xsi:type="array">
+                <item name="component" xsi:type="string">Magento_Ui/js/form/provider</item>
+            </item>
+        </argument>
+    </dataSource>
+    <fieldset name="general">
+        <argument name="data" xsi:type="array">
+            <item name="config" xsi:type="array">
+                <item name="label" xsi:type="string">Automated Export Information</item>
+                <item name="collapsible" xsi:type="boolean">false</item>
+            </item>
+        </argument>
+        <field name="schedule_id">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="visible" xsi:type="boolean">false</item>
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="formElement" xsi:type="string">input</item>
+                    <item name="dataScope" xsi:type="string">schedule_id</item>
+                </item>
+            </argument>
+        </field>
+        <field name="schedule_name">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="label" xsi:type="string" translate="true">Schedule Name</item>
+                    <item name="formElement" xsi:type="string">input</item>
+                    <item name="sortOrder" xsi:type="number">10</item>
+                    <item name="dataScope" xsi:type="string">schedule_name</item>
+                    <item name="placeholder" xsi:type="string">Daily Sales Report Export</item>
+                    <item name="validation" xsi:type="array">
+                        <item name="required-entry" xsi:type="boolean">true</item>
+                    </item>
+                    <item name="tooltip" xsi:type="array">
+                        <item name="description" xsi:type="string">Enter a descriptive name for this scheduled export</item>
+                    </item>
+                </item>
+            </argument>
+        </field>
+        <field name="schedule_code">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="label" xsi:type="string" translate="true">Schedule Code</item>
+                    <item name="formElement" xsi:type="string">input</item>
+                    <item name="sortOrder" xsi:type="number">15</item>
+                    <item name="dataScope" xsi:type="string">schedule_code</item>
+                    <item name="validation" xsi:type="array">
+                        <item name="required-entry" xsi:type="boolean">false</item>
+                    </item>
+                    <item name="tooltip" xsi:type="array">
+                        <item name="description" xsi:type="string">Optional unique identifier for programmatic access</item>
+                    </item>
+                </item>
+            </argument>
+        </field>
+        <field name="cron_schedule">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="label" xsi:type="string" translate="true">Cron Schedule Expression</item>
+                    <item name="formElement" xsi:type="string">input</item>
+                    <item name="sortOrder" xsi:type="number">20</item>
+                    <item name="dataScope" xsi:type="string">cron_schedule</item>
+                    <item name="placeholder" xsi:type="string">0 3 * * *</item>
+                    <item name="validation" xsi:type="array">
+                        <item name="required-entry" xsi:type="boolean">true</item>
+                    </item>
+                    <item name="tooltip" xsi:type="array">
+                        <item name="description" xsi:type="string">Cron expression format: minute hour day month weekday (e.g., 0 3 * * * for daily at 3 AM)</item>
+                    </item>
+                </item>
+            </argument>
+        </field>
+        <field name="output_formats">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="label" xsi:type="string" translate="true">Output Formats</item>
+                    <item name="formElement" xsi:type="string">multiselect</item>
+                    <item name="sortOrder" xsi:type="number">30</item>
+                    <item name="dataScope" xsi:type="string">output_formats</item>
+                    <item name="validation" xsi:type="array">
+                        <item name="required-entry" xsi:type="boolean">true</item>
+                    </item>
+                    <item name="tooltip" xsi:type="array">
+                        <item name="description" xsi:type="string">Select the export output formats (e.g., local file drop, email)</item>
+                    </item>
+                </item>
+                <item name="options" xsi:type="object">BCMarketplace\CustomReportSuite\Model\Config\Source\ExportType</item>
+            </argument>
+        </field>
+        <field name="file_formats">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="label" xsi:type="string" translate="true">File Types</item>
+                    <item name="formElement" xsi:type="string">multiselect</item>
+                    <item name="sortOrder" xsi:type="number">40</item>
+                    <item name="dataScope" xsi:type="string">file_formats</item>
+                    <item name="validation" xsi:type="array">
+                        <item name="required-entry" xsi:type="boolean">true</item>
+                    </item>
+                </item>
+                <item name="options" xsi:type="object">BCMarketplace\CustomReportSuite\Model\Config\Source\FileType</item>
+            </argument>
+        </field>
+        <field name="file_naming_template">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="label" xsi:type="string" translate="true">File Naming Template</item>
+                    <item name="formElement" xsi:type="string">input</item>
+                    <item name="sortOrder" xsi:type="number">50</item>
+                    <item name="dataScope" xsi:type="string">file_naming_template</item>
+                    <item name="placeholder" xsi:type="string">%reportname%-%Y%-%m%-%d%-%h%-%i%-%s%</item>
+                    <item name="validation" xsi:type="array">
+                        <item name="required-entry" xsi:type="boolean">true</item>
+                    </item>
+                    <item name="tooltip" xsi:type="array">
+                        <item name="description" xsi:type="string">Available variables: %reportname%, %d%, %m%, %y%, %Y%, %h%, %i%, %s%</item>
+                    </item>
+                </item>
+            </argument>
+        </field>
+        <field name="storage_path">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="label" xsi:type="string" translate="true">Storage Path</item>
+                    <item name="formElement" xsi:type="string">input</item>
+                    <item name="sortOrder" xsi:type="number">60</item>
+                    <item name="dataScope" xsi:type="string">storage_path</item>
+                    <item name="placeholder" xsi:type="string">var/export</item>
+                    <item name="validation" xsi:type="array">
+                        <item name="required-entry" xsi:type="boolean">true</item>
+                    </item>
+                    <item name="tooltip" xsi:type="array">
+                        <item name="description" xsi:type="string">Directory path where exported files will be stored</item>
+                    </item>
+                </item>
+            </argument>
+        </field>
+        <field name="is_enabled">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="dataType" xsi:type="string">boolean</item>
+                    <item name="label" xsi:type="string" translate="true">Is Enabled</item>
+                    <item name="formElement" xsi:type="string">checkbox</item>
+                    <item name="sortOrder" xsi:type="number">65</item>
+                    <item name="dataScope" xsi:type="string">is_enabled</item>
+                    <item name="prefer" xsi:type="string">toggle</item>
+                    <item name="valueMap" xsi:type="array">
+                        <item name="true" xsi:type="number">1</item>
+                        <item name="false" xsi:type="number">0</item>
+                    </item>
+                    <item name="default" xsi:type="number">1</item>
+                    <item name="tooltip" xsi:type="array">
+                        <item name="description" xsi:type="string">Enable or disable this scheduled export</item>
+                    </item>
+                </item>
+            </argument>
+        </field>
+        <field name="customreport_ids">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="label" xsi:type="string" translate="true">Associated Report Definitions</item>
+                    <item name="formElement" xsi:type="string">multiselect</item>
+                    <item name="sortOrder" xsi:type="number">70</item>
+                    <item name="dataScope" xsi:type="string">customreport_ids</item>
+                </item>
+                <item name="options" xsi:type="object">BCMarketplace\CustomReportSuite\Model\Config\Source\CustomReports</item>
+            </argument>
+        </field>
+    </fieldset>
+</form>

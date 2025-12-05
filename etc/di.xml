@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="BCMarketplace\CustomReportSuite\Api\CustomReportRepositoryInterface" type="BCMarketplace\CustomReportSuite\Model\CustomReportRepository"/>
+    <preference for="BCMarketplace\CustomReportSuite\Api\Data\CustomReportInterface" type="BCMarketplace\CustomReportSuite\Model\CustomReport"/>
+
+    <preference for="BCMarketplace\CustomReportSuite\Api\AutomatedExportRepositoryInterface" type="BCMarketplace\CustomReportSuite\Model\AutomatedExportRepository"/>
+    <preference for="BCMarketplace\CustomReportSuite\Api\Data\AutomatedExportInterface" type="BCMarketplace\CustomReportSuite\Model\AutomatedExport"/>
+
+    <preference for="BCMarketplace\CustomReportSuite\Api\AutomatedExportLinkRepositoryInterface" type="BCMarketplace\CustomReportSuite\Model\AutomatedExportLinkRepository"/>
+    <preference for="BCMarketplace\CustomReportSuite\Api\Data\AutomatedExportLinkInterface" type="BCMarketplace\CustomReportSuite\Model\AutomatedExportLink"/>
+
+    <preference for="BCMarketplace\CustomReportSuite\Api\CreateDynamicCronInterface" type="BCMarketplace\CustomReportSuite\Model\Service\CreateDynamicCron"/>
+    <preference for="BCMarketplace\CustomReportSuite\Api\DeleteDynamicCronInterface" type="BCMarketplace\CustomReportSuite\Model\Service\DeleteDynamicCron"/>
+    <preference for="BCMarketplace\CustomReportSuite\Api\SqlQueryValidatorInterface" type="BCMarketplace\CustomReportSuite\Model\Service\SqlQueryValidator"/>
+
+    <type name="BCMarketplace\CustomReportSuite\Model\AutomatedExport\Cron">
+        <arguments>
+            <argument name="logger" xsi:type="object">Magento\Cron\Model\VirtualLogger</argument>
+        </arguments>
+    </type>
+</config>

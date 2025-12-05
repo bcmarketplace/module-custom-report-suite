@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Acl/etc/acl.xsd">
+    <acl>
+        <resources>
+            <resource id="Magento_Backend::admin">
+                <resource id="BCMarketplace_CustomReportSuite::customreport" title="Manage Report Definitions">
+                    <resource id="BCMarketplace_CustomReportSuite::customreport_add_new" title="Add New Report"/>
+                    <resource id="BCMarketplace_CustomReportSuite::customreport_edit" title="Edit Report"/>
+                    <resource id="BCMarketplace_CustomReportSuite::customreport_save" title="Save Report"/>
+                    <resource id="BCMarketplace_CustomReportSuite::customreport_delete" title="Delete Report"/>
+                    <resource id="BCMarketplace_CustomReportSuite::customreport_view_report" title="View Report"/>
+                    <resource id="BCMarketplace_CustomReportSuite::customreport_export_report" title="Export Report"/>
+                </resource>
+                <resource id="BCMarketplace_CustomReportSuite::automatedexport" title="Manage Automated Exports">
+                    <resource id="BCMarketplace_CustomReportSuite::automatedexport_add_new" title="Add New Automated Export"/>
+                    <resource id="BCMarketplace_CustomReportSuite::automatedexport_edit" title="Edit Automated Export"/>
+                    <resource id="BCMarketplace_CustomReportSuite::automatedexport_save" title="Save Automated Export"/>
+                    <resource id="BCMarketplace_CustomReportSuite::automatedexport_delete" title="Delete Automated Export"/>
+                    <resource id="BCMarketplace_CustomReportSuite::automatedexport_view_automated_export" title="View Automated Export"/>
+                </resource>
+                <resource id="BCMarketplace_CustomReportSuite::config" title="Custom Report Suite Configuration"/>
+            </resource>
+        </resources>
+    </acl>
+</config>

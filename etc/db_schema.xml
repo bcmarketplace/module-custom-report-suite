@@ -1,0 +1,81 @@
+<?xml version="1.0"?>
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+    <table name="bcmarketplace_report_definitions" resource="default" engine="innodb" comment="BCMarketplace Report Definitions">
+        <column xsi:type="int" name="report_id" padding="10" unsigned="true" nullable="false" identity="true" comment="Report ID"/>
+        <column xsi:type="varchar" name="report_title" nullable="false" length="255" comment="Report Title"/>
+        <column xsi:type="varchar" name="report_code" nullable="true" length="100" comment="Unique Report Code"/>
+        <column xsi:type="text" name="query_definition" nullable="false" comment="SQL Query Definition"/>
+        <column xsi:type="text" name="description" nullable="true" comment="Report Description"/>
+        <column xsi:type="smallint" name="is_active" nullable="false" default="1" comment="Is Active"/>
+        <column xsi:type="smallint" name="execution_count" nullable="false" default="0" unsigned="true" comment="Total Execution Count"/>
+        <column xsi:type="timestamp" name="last_executed_at" on_update="false" nullable="true" comment="Last Execution Time"/>
+        <column xsi:type="timestamp" name="created_at" on_update="false" nullable="false" default="CURRENT_TIMESTAMP" comment="Creation Time"/>
+        <column xsi:type="timestamp" name="updated_at" on_update="true" nullable="false" default="CURRENT_TIMESTAMP" comment="Modification Time"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="report_id"/>
+        </constraint>
+        <constraint xsi:type="unique" referenceId="UNIQUE_REPORT_CODE">
+            <column name="report_code"/>
+        </constraint>
+        <index referenceId="IDX_IS_ACTIVE" indexType="btree">
+            <column name="is_active"/>
+        </index>
+        <index referenceId="IDX_LAST_EXECUTED" indexType="btree">
+            <column name="last_executed_at"/>
+        </index>
+    </table>
+    <table name="bcmarketplace_scheduled_exports" resource="default" engine="innodb" comment="BCMarketplace Scheduled Exports">
+        <column xsi:type="int" name="schedule_id" padding="10" unsigned="true" nullable="false" identity="true" comment="Schedule ID"/>
+        <column xsi:type="varchar" name="schedule_name" nullable="false" length="255" comment="Schedule Name"/>
+        <column xsi:type="varchar" name="schedule_code" nullable="true" length="100" comment="Unique Schedule Code"/>
+        <column xsi:type="varchar" name="cron_schedule" nullable="false" length="255" comment="Cron Schedule Expression"/>
+        <column xsi:type="varchar" name="output_formats" nullable="false" length="255" comment="Comma-separated Output Formats"/>
+        <column xsi:type="varchar" name="file_formats" nullable="false" length="255" comment="Comma-separated File Formats"/>
+        <column xsi:type="varchar" name="file_naming_template" nullable="false" length="255" comment="File Naming Template"/>
+        <column xsi:type="varchar" name="storage_path" nullable="false" length="500" comment="Storage Path"/>
+        <column xsi:type="smallint" name="is_enabled" nullable="false" default="1" comment="Is Enabled"/>
+        <column xsi:type="int" name="execution_count" nullable="false" default="0" unsigned="true" comment="Total Execution Count"/>
+        <column xsi:type="timestamp" name="last_run_at" on_update="false" nullable="true" comment="Last Run Time"/>
+        <column xsi:type="timestamp" name="next_run_at" on_update="false" nullable="true" comment="Next Scheduled Run Time"/>
+        <column xsi:type="timestamp" name="created_at" on_update="false" nullable="false" default="CURRENT_TIMESTAMP" comment="Creation Time"/>
+        <column xsi:type="timestamp" name="updated_at" on_update="true" nullable="false" default="CURRENT_TIMESTAMP" comment="Modification Time"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="schedule_id"/>
+        </constraint>
+        <constraint xsi:type="unique" referenceId="UNIQUE_SCHEDULE_CODE">
+            <column name="schedule_code"/>
+        </constraint>
+        <index referenceId="IDX_IS_ENABLED" indexType="btree">
+            <column name="is_enabled"/>
+        </index>
+        <index referenceId="IDX_NEXT_RUN" indexType="btree">
+            <column name="next_run_at"/>
+        </index>
+    </table>
+    <table name="bcmarketplace_schedule_report_mapping" resource="default" engine="innodb" comment="BCMarketplace Schedule to Report Mapping">
+        <column xsi:type="int" name="mapping_id" padding="10" unsigned="true" nullable="false" identity="true" comment="Mapping ID"/>
+        <column xsi:type="int" name="schedule_id" padding="10" unsigned="true" nullable="false" comment="Schedule ID"/>
+        <column xsi:type="int" name="report_id" padding="10" unsigned="true" nullable="false" comment="Report ID"/>
+        <column xsi:type="smallint" name="execution_order" nullable="false" default="0" comment="Execution Order"/>
+        <column xsi:type="timestamp" name="created_at" on_update="false" nullable="false" default="CURRENT_TIMESTAMP" comment="Creation Time"/>
+        <column xsi:type="timestamp" name="updated_at" on_update="true" nullable="false" default="CURRENT_TIMESTAMP" comment="Modification Time"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="mapping_id"/>
+        </constraint>
+        <constraint xsi:type="foreign" referenceId="FK_SCHEDULE_REPORT_MAPPING_SCHEDULE" table="bcmarketplace_schedule_report_mapping" column="schedule_id" referenceTable="bcmarketplace_scheduled_exports" referenceColumn="schedule_id" onDelete="CASCADE"/>
+        <constraint xsi:type="foreign" referenceId="FK_SCHEDULE_REPORT_MAPPING_REPORT" table="bcmarketplace_schedule_report_mapping" column="report_id" referenceTable="bcmarketplace_report_definitions" referenceColumn="report_id" onDelete="CASCADE"/>
+        <constraint xsi:type="unique" referenceId="UNIQUE_SCHEDULE_REPORT">
+            <column name="schedule_id"/>
+            <column name="report_id"/>
+        </constraint>
+        <index referenceId="IDX_SCHEDULE_ID" indexType="btree">
+            <column name="schedule_id"/>
+        </index>
+        <index referenceId="IDX_REPORT_ID" indexType="btree">
+            <column name="report_id"/>
+        </index>
+        <index referenceId="IDX_EXECUTION_ORDER" indexType="btree">
+            <column name="execution_order"/>
+        </index>
+    </table>
+</schema>
