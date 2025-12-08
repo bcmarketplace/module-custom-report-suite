@@ -148,9 +148,8 @@ class SqlQueryValidatorTest extends TestCase
      */
     public function testMultipleStatementsBlocked(): void
     {
-        // The validator checks dangerous keywords first, so DROP TABLE is caught before multiple statements check
         $this->expectException(LocalizedException::class);
-        $this->expectExceptionMessage('SQL query contains prohibited operation: DROP TABLE');
+        $this->expectExceptionMessage('Multiple SQL statements');
         $this->validator->validate('SELECT * FROM orders; DROP TABLE orders;');
     }
 
@@ -527,10 +526,8 @@ class SqlQueryValidatorTest extends TestCase
      */
     public function testUnlockTableBlocked(): void
     {
-        // The validator checks if query starts with SELECT/WITH before checking dangerous keywords
-        // UNLOCK TABLES doesn't start with SELECT, so it's caught by the "must start with SELECT" check
         $this->expectException(LocalizedException::class);
-        $this->expectExceptionMessage('SQL query must start with SELECT or WITH');
+        $this->expectExceptionMessage('UNLOCK TABLE');
         $this->validator->validate('UNLOCK TABLES');
     }
 
@@ -670,26 +667,16 @@ class SqlQueryValidatorTest extends TestCase
      */
     public function testCommentsHidingDangerousOperations(): void
     {
-        // After normalization, comments are removed first, so queries with dangerous operations in comments
-        // become valid SELECT statements. The validator removes comments before checking for dangerous keywords.
-        // Test with queries where dangerous operations are NOT in comments (they should be caught)
         $maliciousQueries = [
-            'SELECT * FROM sales_order; UPDATE sales_order SET status = 1',
-            'SELECT * FROM sales_order; DELETE FROM sales_order WHERE id = 1',
+            'SELECT * FROM sales_order; -- UPDATE sales_order SET status = 1',
+            'SELECT * FROM sales_order; /* UPDATE sales_order SET status = 1 */',
+            'SELECT * FROM sales_order; --\nUPDATE sales_order SET status = 1',
         ];
 
         foreach ($maliciousQueries as $query) {
-            // Dangerous keywords are checked first, so UPDATE/DELETE is caught
             $this->expectException(LocalizedException::class);
-            $this->expectExceptionMessage('SQL query contains prohibited operation');
             $this->validator->validate($query);
         }
-        
-        // Test that comments are properly removed and don't hide operations
-        // Query with UPDATE in comment - after comment removal, becomes valid SELECT
-        $validQuery = 'SELECT * FROM sales_order; -- UPDATE sales_order SET status = 1';
-        // This should pass because comments are removed, leaving only "SELECT * FROM sales_order;"
-        $this->assertTrue($this->validator->validate($validQuery));
     }
 
     /**
@@ -738,10 +725,8 @@ class SqlQueryValidatorTest extends TestCase
      */
     public function testDeleteWithJoinBlocked(): void
     {
-        // The validator checks if query starts with SELECT/WITH before checking dangerous keywords
-        // DELETE doesn't start with SELECT, so it's caught by the "must start with SELECT" check
         $this->expectException(LocalizedException::class);
-        $this->expectExceptionMessage('SQL query must start with SELECT or WITH');
+        $this->expectExceptionMessage('DELETE FROM');
         $this->validator->validate(
             'DELETE o FROM sales_order o JOIN customer_entity c ON o.customer_id = c.entity_id WHERE c.status = 0'
         );

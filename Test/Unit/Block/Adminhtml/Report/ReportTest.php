@@ -9,7 +9,7 @@ use Magento\Framework\DataObject;
 use Magento\Framework\Stdlib\DateTime\TimezoneInterface;
 use PHPUnit\Framework\TestCase;
 
-class ReportTest extends TestCase
+class ExportTest extends TestCase
 {
     /**
      * @var Export

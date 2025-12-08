@@ -121,7 +121,7 @@ class BuilderTest extends TestCase
     public function testBuild(): void
     {
         $this->requestMock
-            ->expects($this->once())
+            ->expects($this->at(0))
             ->method('getParam')
             ->willReturn(122);
 
@@ -132,7 +132,7 @@ class BuilderTest extends TestCase
     public function testBuildNullId(): void
     {
         $this->requestMock
-            ->expects($this->once())
+            ->expects($this->at(0))
             ->method('getParam')
             ->willReturn(null);
 
@@ -143,7 +143,7 @@ class BuilderTest extends TestCase
     public function testBuildLogger(): void
     {
         $this->requestMock
-            ->expects($this->once())
+            ->expects($this->at(0))
             ->method('getParam')
             ->willReturn(10);
 

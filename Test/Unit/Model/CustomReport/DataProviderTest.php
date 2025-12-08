@@ -50,11 +50,6 @@ class DataProviderTest extends TestCase
     protected $data;
 
     /**
-     * @var \BCMarketplace\CustomReportSuite\Model\ResourceModel\CustomReport\Collection|\PHPUnit\Framework\MockObject\MockObject
-     */
-    protected $collectionMock;
-
-    /**
      * {@inheritdoc}
      */
     protected function setUp(): void
@@ -89,7 +84,6 @@ class DataProviderTest extends TestCase
         unset($this->dataPersistor);
         unset($this->meta);
         unset($this->data);
-        unset($this->collectionMock);
     }
 
     public function testPrepareMeta(): void

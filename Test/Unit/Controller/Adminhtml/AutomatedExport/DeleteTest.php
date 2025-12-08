@@ -2,8 +2,7 @@
 
 namespace Tests\Unit\BCMarketplace\CustomReportSuite\Controller\Adminhtml\AutomatedExport;
 
-use BCMarketplace\CustomReportSuite\Api\AutomatedExportRepositoryInterface;
-use BCMarketplace\CustomReportSuite\Api\DeleteDynamicCronInterface;
+use BCMarketplace\CustomReportSuite\Api\CustomReportRepositoryInterface;
 use BCMarketplace\CustomReportSuite\Controller\Adminhtml\AutomatedExport\Delete;
 use Magento\Backend\App\Action\Context;
 use Magento\Framework\App\RequestInterface;
@@ -22,14 +21,9 @@ class DeleteTest extends TestCase
     protected $context;
 
     /**
-     * @var AutomatedExportRepositoryInterface|Mock
+     * @var CustomReportRepositoryInterface|Mock
      */
-    protected $autoExportReportRepository;
-
-    /**
-     * @var DeleteDynamicCronInterface|Mock
-     */
-    protected $deleteCronConfigData;
+    protected $customReportRepository;
 
     /**
      * @var RequestInterface|\PHPUnit\Framework\MockObject\MockObject
@@ -63,9 +57,8 @@ class DeleteTest extends TestCase
         $this->messageManagerMock = $this->createMock(\Magento\Framework\Message\ManagerInterface::class);
         $this->context->method('getMessageManager')->willReturn($this->messageManagerMock);
 
-        $this->autoExportReportRepository = $this->createMock(AutomatedExportRepositoryInterface::class);
-        $this->deleteCronConfigData = $this->createMock(DeleteDynamicCronInterface::class);
-        $this->delete = new Delete($this->context, $this->autoExportReportRepository, $this->deleteCronConfigData);
+        $this->customReportRepository = $this->createMock(CustomReportRepositoryInterface::class);
+        $this->delete = new Delete($this->context, $this->customReportRepository);
     }
 
     /**
@@ -77,8 +70,7 @@ class DeleteTest extends TestCase
 
         unset($this->delete);
         unset($this->context);
-        unset($this->autoExportReportRepository);
-        unset($this->deleteCronConfigData);
+        unset($this->customReportRepository);
     }
 
     public function testExecuteIdUndefined(): void
@@ -102,10 +94,6 @@ class DeleteTest extends TestCase
         $this->redirectPageMock->method('create')
             ->willReturn($redirectPageMock);
 
-        $autoExportMock = $this->createMock(\BCMarketplace\CustomReportSuite\Model\AutomatedExport::class);
-        $autoExportMock->method('getId')->willReturn(1);
-        $this->autoExportReportRepository->method('getById')->with(1)->willReturn($autoExportMock);
-        $this->deleteCronConfigData->method('execute')->willReturn(null);
 
         $this->delete->execute();
     }
@@ -118,12 +106,8 @@ class DeleteTest extends TestCase
         $redirectPageMock = $this->createMock(\Magento\Framework\Controller\Result\Redirect::class);
         $this->redirectPageMock->method('create')
             ->willReturn($redirectPageMock);
-
-        $autoExportMock = $this->createMock(\BCMarketplace\CustomReportSuite\Model\AutomatedExport::class);
-        $autoExportMock->method('getId')->willReturn(1);
-        $this->autoExportReportRepository->method('getById')->with(1)->willReturn($autoExportMock);
-        $this->deleteCronConfigData->method('execute')->willReturn(null);
-        $this->autoExportReportRepository->method('delete')
+        
+        $this->customReportRepository->method('delete')
             ->willThrowException(new \Exception('test failed deleted'));
 
         $this->delete->execute();

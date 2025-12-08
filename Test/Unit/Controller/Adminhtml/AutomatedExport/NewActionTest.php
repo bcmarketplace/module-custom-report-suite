@@ -90,7 +90,7 @@ class NewActionTest extends TestCase
 
     public function testExecuteExeptionType(): void
     {
-        $this->titleMock->expects($this->once())
+        $this->titleMock->expects($this->at(0))
             ->method('prepend')
             ->willReturn(__('New Report'));
 

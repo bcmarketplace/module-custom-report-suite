@@ -99,19 +99,23 @@ class GridTest extends TestCase
 
 
         $columnSetBlockMock = $this->createMock(ColumnSet::class);
+        $this->layoutMock->expects(self::at(0))->method('createBlock')
+            ->with(
+                ColumnSet::class,
+                'bcmarketplace_customreportsuite_grid.grid.columnSet'
+            )->willReturn($columnSetBlockMock);
+
         $columnBlockMock = $this->createMock(Column::class);
+        $this->layoutMock->expects(self::at(1))->method('createBlock')
+            ->with(
+                Column::class,
+                'bcmarketplace_customreportsuite_grid.grid.column.' . 'test_key'
+            )->willReturn($columnBlockMock);
+
+
         $exportBlockMock = $this->createMock(\BCMarketplace\CustomReportSuite\Block\Adminhtml\Report\Export::class);
-        
-        $this->layoutMock->expects($this->any())->method('createBlock')
-            ->willReturnCallback(function ($type, $name = null) use ($columnSetBlockMock, $columnBlockMock, $exportBlockMock) {
-                if ($type === ColumnSet::class) {
-                    return $columnSetBlockMock;
-                }
-                if ($type === Column::class) {
-                    return $columnBlockMock;
-                }
-                return $exportBlockMock;
-            });
+        $this->layoutMock->expects(self::at(4))->method('createBlock')
+            ->willReturn($exportBlockMock);
 
         $this->grid->_prepareLayout();
     }

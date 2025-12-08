@@ -4,7 +4,6 @@ namespace BCMarketplace\CustomReportSuite\Test\Unit\Controller\Adminhtml\CustomR
 
 use BCMarketplace\CustomReportSuite\Api\CustomReportRepositoryInterface;
 use BCMarketplace\CustomReportSuite\Controller\Adminhtml\CustomReport\Save;
-use BCMarketplace\CustomReportSuite\Model\CustomReportFactory;
 use Magento\Backend\App\Action\Context;
 use Magento\Framework\App\Request\DataPersistorInterface;
 use Magento\Framework\App\RequestInterface;
@@ -30,12 +29,7 @@ class SaveTest extends TestCase
     /**
      * @var CustomReportRepositoryInterface|Mock
      */
-    protected $customReportRepository;
-
-    /**
-     * @var CustomReportFactory|Mock
-     */
-    protected $customReportFactory;
+    protected $automatedExportRepository;
 
     /**
      * @var RequestInterface|\PHPUnit\Framework\MockObject\MockObject
@@ -78,9 +72,8 @@ class SaveTest extends TestCase
         $this->context->method('getMessageManager')->willReturn($this->messageManagerMock);
 
         $this->dataPersistor = $this->createMock(DataPersistorInterface::class);
-        $this->customReportRepository = $this->createMock(CustomReportRepositoryInterface::class);
-        $this->customReportFactory = $this->createMock(CustomReportFactory::class);
-        $this->save = new Save($this->context, $this->dataPersistor, $this->customReportRepository, $this->customReportFactory);
+        $this->automatedExportRepository = $this->createMock(CustomReportRepositoryInterface::class);
+        $this->save = new Save($this->context, $this->dataPersistor, $this->automatedExportRepository);
     }
 
     /**
@@ -93,8 +86,7 @@ class SaveTest extends TestCase
         unset($this->save);
         unset($this->context);
         unset($this->dataPersistor);
-        unset($this->customReportRepository);
-        unset($this->customReportFactory);
+        unset($this->automatedExportRepository);
     }
 
     public function testExecute(): void
@@ -108,9 +100,7 @@ class SaveTest extends TestCase
         $this->redirectPageMock->method('create')->willReturn($redirectPageMock);
 
         $customReportMock = $this->createMock(\BCMarketplace\CustomReportSuite\Model\CustomReport::class);
-        $customReportMock->method('getId')->willReturn(1);
-        $this->customReportFactory->method('create')->willReturn($customReportMock);
-        $this->customReportRepository->method('save')->willReturn($customReportMock);
+        $this->objectManagerMock->method('create')->willReturn($customReportMock);
 
         $redirectPageMock->method('setPath')->willReturnSelf();
 

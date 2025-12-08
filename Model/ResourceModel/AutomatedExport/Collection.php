@@ -29,16 +29,6 @@ class Collection extends AbstractCollection
     }
 
     /**
-     * Add report IDs to collection (alias for addReportIds)
-     *
-     * @return $this
-     */
-    public function addCustomreportIds(): Collection
-    {
-        return $this->addReportIds();
-    }
-
-    /**
      * Filter by active schedules only
      *
      * @return $this

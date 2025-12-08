@@ -18,7 +18,6 @@
                     <resource id="BCMarketplace_CustomReportSuite::automatedexport_delete" title="Delete Automated Export"/>
                     <resource id="BCMarketplace_CustomReportSuite::automatedexport_view_automated_export" title="View Automated Export"/>
                 </resource>
-                <resource id="BCMarketplace_CustomReportSuite::config" title="Custom Report Suite Configuration"/>
             </resource>
         </resources>
     </acl>

@@ -1,17 +1,11 @@
 <?xml version="1.0"?>
-<!--
-/**
- * Copyright © Baako Consulting LLC. All rights reserved.
- * See COPYING.txt for license details.
- */
--->
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
     <menu>
-        <add id="BCMarketplace_CustomReportSuite::report_suite" title="Report Suite" translate="title" module="BCMarketplace_CustomReportSuite" sortOrder="5" parent="Magento_Reports::report" resource="BCMarketplace_CustomReportSuite::customreport" dependsOnConfig="bcmarketplace_customreportsuite/general/enabled"/>
+        <add id="BCMarketplace_CustomReportSuite::report_suite" title="Report Suite" translate="title" module="BCMarketplace_CustomReportSuite" sortOrder="5" parent="Magento_Reports::report" resource="BCMarketplace_CustomReportSuite::customreport"/>
         <add id="BCMarketplace_CustomReportSuite::report_definitions" resource="BCMarketplace_CustomReportSuite::customreport" title="Report Definitions" action="bcmarketplace_customreportsuite/customreport/listing" module="BCMarketplace_CustomReportSuite" sortOrder="10" parent="BCMarketplace_CustomReportSuite::report_suite"
-             dependsOnModule="BCMarketplace_CustomReportSuite" dependsOnConfig="bcmarketplace_customreportsuite/general/enabled"/>
+             dependsOnModule="BCMarketplace_CustomReportSuite"/>
         <add id="BCMarketplace_CustomReportSuite::scheduled_exports" resource="BCMarketplace_CustomReportSuite::automatedexport" title="Scheduled Exports" action="bcmarketplace_customreportsuite/automatedexport/listing" module="BCMarketplace_CustomReportSuite" sortOrder="20"
-             parent="BCMarketplace_CustomReportSuite::report_suite" dependsOnModule="BCMarketplace_CustomReportSuite" dependsOnConfig="bcmarketplace_customreportsuite/general/enabled"/>
+             parent="BCMarketplace_CustomReportSuite::report_suite" dependsOnModule="BCMarketplace_CustomReportSuite"/>
     </menu>
 </config>
 
