@@ -1,6 +1,6 @@
 # BCMarketplace Custom Report Suite
 
-**Version:** 2.1.0  
+**Version:** 2.2.0  
 **Compatibility:** Adobe Commerce 2.4.7-p6+ / Magento 2.4.7-p6+  
 **PHP:** 8.2+ / 8.3+  
 **Author:** Raphael Baako (rbaako@baakoconsultingllc.com)  
@@ -128,16 +128,21 @@ The module can be enabled or disabled from the admin panel:
 
 ## Changelog
 
-### 2.1.0 (Current)
+### 2.2.0 (Current)
+- Configuration system integrated with BCMarketplace Base module
+- Module enable/disable functionality via admin configuration
+- Conditional menu visibility based on module configuration
+
+### 2.1.0
 - Complete refactoring for Adobe Commerce 2.4.7-p6 compatibility
-- Re-namespaced from DEG\CustomReports to BCMarketplace\CustomReportSuite
+- Re-namespaced to BCMarketplace\CustomReportSuite
 - Removed deprecated code (Zend_Db_Expr, ObjectManager)
 - Added strict typing and PHP 8.2+ compatibility
 - Performance optimizations
 - Enhanced error handling and logging
 
-### 2.0.0 (Original)
-- Initial release by DEG Digital
+### 2.0.0
+- Initial release
 
 ## License
 
