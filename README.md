@@ -1,3 +1,7 @@
+<div align="center">
+  <img src="screenshots/custom-report-suite-logo.png" alt="BCMarketplace Custom Report Suite Logo" width="300">
+</div>
+
 # BCMarketplace Custom Report Suite
 
 **Version:** 2.2.2  
