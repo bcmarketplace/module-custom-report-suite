@@ -14,6 +14,20 @@
 
 BCMarketplace Custom Report Suite is an enterprise-grade module that enables administrators to create custom SQL-based reports directly from the Adobe Commerce admin panel. This module provides a powerful, flexible reporting solution with advanced features including automated exports, scheduled cron jobs, and comprehensive data visualization.
 
+## Video Demonstration
+
+Watch the video below to see the module's functionality in action:
+
+<div align="center">
+  <a href="https://www.youtube.com/watch?v=PYHDXDpYTOo&autoplay=1">
+    <img src="https://img.youtube.com/vi/PYHDXDpYTOo/maxresdefault.jpg" alt="BCMarketplace Custom Report Suite - Functionality Demonstration" width="560" style="border: 2px solid #0066cc; border-radius: 8px;">
+  </a>
+  <br>
+  <a href="https://www.youtube.com/watch?v=PYHDXDpYTOo&autoplay=1">
+    <strong>▶️ Click to Watch on YouTube (Auto-play)</strong>
+  </a>
+</div>
+
 ## Features
 
 ### Core Functionality
